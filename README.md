@@ -3,17 +3,16 @@ This repository encompasses the mecha25 team 's final report for the Winter 2025
 
 
 ##### Table of Contents  
-[The Course](#obstaclecourse)  
-[Materials and Parts](#matsandparts)  
-[Romi Assembly](#romiassembly)  
-[Wiring Diagram](#wirediagram)
-[What makes our Romi Unique?](#obstaclecourse)  
-[Task Diagrams and Descriptions](#taskdiagram)  
-[Finite State Machines (FSM)](#fsm)  
-[Code Description](#wirediagram)
-[Time Trials](#timetrials)
-[Video of Romi](#video)
-[Conclusions](#conclusion)
-...snip...    
+#[The Course](#obstaclecourse)  
+#[Materials and Parts](#matsandparts)  
+#[Romi Assembly](#romiassembly)  
+#[Wiring Diagram](#wirediagram)
+#[What makes our Romi Unique?](#obstaclecourse)  
+#[Task Diagrams and Descriptions](#taskdiagram)  
+#[Finite State Machines (FSM)](#fsm)  
+#[Code Description](#wirediagram)
+#[Time Trials](#timetrials)
+#[Video of Romi](#video)
+#[Conclusions](#conclusion) 
 <a name="headers"/>
 ## Headers
