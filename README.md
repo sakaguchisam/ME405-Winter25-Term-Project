@@ -97,6 +97,30 @@ Our Romi is unique for a couple of reasons. On the hardware side, it is very sim
 
 # Code Description
 
+**main.py:**
+Our main.py code will manage all of the other functions and files that controls individual Romi components and software that processes data to make motor decisions. 
+Main includes the following functions, tasks and operations
+* A battery regulator function that takes the value from a voltage divider from the battery and readjusts the motors in accordance to the battery level and expected battery level.
+* Line sensor initialization as well as start calibration to get the heading of Romi at start of track, this heading will be used to help adjust Romi heading at the final task at the grid.
+* Line sensor task will constantly grab the scaled error after giving the PID controller the linesensor readings.
+* Encoder task update will initialize the pins used for the left and right encoder and constantly update to push the position to a queue which we will pull from to track distance traveled to use later as a conditional for final task.
+* Final task which occurs when we reach the desired distance (113) which is the end of the lined track and beginning of the grid and cage part. The final task will stop the Romi, then swivel to 180 degrees offset of the initial recorded heading to perfectly align itself for forward movement through the cage. the robot will then move forward a set distance, then turn 90 degrees towards the obstacle wall, then move forward before hitting the wall, and turn -90 degrees before collision, then move forward a set distance to hit the second cup for a time deduction, at which the Romi will turn -90 degrees, move forward a set distance, and turn -90 degrees one more time before moving forward into the final checkpoint and start area.
+* Scheduler processes all of the following tasks: Linesensor, PID controller, Left Motor, Right Motor, Encoder Update. Additionally, to save time for the scheduler and to ensure all tasks are performed on time, we do not use any prints and optimize all tasks that need to run in this main schedule. Lastly, to save even more time, tasks that only run once such as the final task do not run at all until certain conditions: Encoder distance reading is at 113, and line sensor reads roughly all white to indicate the end of the path.
+* Keyboard interrupt to stop the motors and disable them when we restart the REPL.
+
+**bump_sensor.py:**
+Our bump_sensor.py sets up external interrupts for four bump sensors and provides a cooperative task to react to bump_flag. This allows the Romi to stop when bump sensors are triggered.
+
+**encoder.py:**
+Our encoder.py implements an encoder class for tracking position and velocity. It utilizes a hardware timer in encoder mode to count pulses from a quadrature encoder, allowing for real-time position and velocity calculations. We have an update function that updates the encoder count, position, and velocity calculations and corrects for overflow/underflow of the 16-bit counter.
+
+**imu.py:**
+Our imu.py provides an interface for the BNO055 IMU sensor using I2C. It supports reading sensor data, calibration, and mode configuration. We have functions for calibration status as well as a function that reads and returns the calibration coefficient from the sensor for the accelerometer, magnetometer, and gyroscope. Functions to read the heading, Euler, angular velocity, acceleration, and magnetic field. For this project, only the heading is used for motor control
+
+**left_motor.py & right_motor.py:**
+Our left_motor.py and right_motor.py
+
+
 # Time Trials
 
 # Video of Romi
