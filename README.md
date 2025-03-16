@@ -31,24 +31,59 @@ The tricky part about this course was the line sensing portion. With multiple di
 
 # Materials and Parts
 
-| Part  | Quantity | Link |
+## Lab Provided Parts
+These parts were provided by the Cal Poly San Luis Obispo ME405 Professor Charlie Refvem
+
+| Qty | Part | Source |
 | ------------- | ------------- | ---------|
-| Content Cell  | Content Cell  | contnet |
-| Content Cell  | Content Cell  | content |
+| 2 | M2.0 x 8mm Standoff  | Lab Provided |
+| 2 | M2.0 x Nylon Lock Nuts  | Lab Provided |
+| 4 | M2.5 x 8mm Standoff  | Lab Provided |
+| 8 | M2.5 x 10mm Standoff  | Lab Provided |
+| 4 | M2.5 x 30mm Standoff  | Lab Provided |
+| 4 | M2.5 x 6mm Socket Head Cap Screw  | Lab Provided |
+| 4 | M2.5 x 8mm Socket Head Cap Screw  | Lab Provided |
+| 4 | M2.5 x 10mm Socket Head Cap Screw  | Lab Provided |
+| 12 | M2.5 Nylon Lock Nuts  | Lab Provided |
+| 12 | M2.5 Nylon Washer  | Lab Provided |
+| 1 | Acrylic Romi-to-Shoe Adapter  | Lab Provided |
+| 1 | BNO055 IMU Breakout Board  | Lab Provided |
+| 1 | Modified Shoe of Brian  | Lab Provided |
+| 1 | Extra Nucleo L476RG  | Lab Provided |
+| 1 | Romi Chassis w/ Wheels and Caster  | Lab Provided |
+| 1 | 47k Ohm Resistor  | Lab Provided |
+| 1 | 22k Ohm Resistor  | Lab Provided |
+
+## Other sourced Parts
+These separate parts were bought by the team
+| Qty | Part | Source |
+| ------------- | ------------- | ---------|
+| 1 | 120pcs 20 cm Dupon Ribbon  | [Link](https://www.amazon.com/dp/B07GCY6CH7?th=1) |
+| 1 | HC-05 Bluetooth Module  | [Link](https://www.amazon.com/dp/B01MQKX7VP) |
+| 6 | NiMH AA Battery | [Link](https://www.amazon.com/dp/B0D2JCY87L) |
+| 1 | NiMH Battery Charger | [Link](https://www.amazon.com/dp/B00JHKSLM8) |
+| 1 | IR Reflectance Sensor 4mm x 13 | [Link](https://www.pololu.com/category/123/pololu-qtr-reflectance-sensors) |
+| 1 | USB-Mini-B to USB-C Cable | [Link](https://www.amazon.com/dp/B082F3M1HW?th=1) |
+| 1 | Bumper Switch Assembly | [Link](https://www.pololu.com/product/3674) |
+
 
 # Romi Assembly
 
+> [!NOTE]
+> The Romi Assembly Construction Manual was provided by Professor Charlie Refvem and is linked here as the [Term Project Construction Manual](https://github.com/user-attachments/files/19275778/ME405_2252_Term_Project_0x01.pdf)
+
+
 The Romi Robot integrates mutliple systems, including the following
 
+* **Nucleo L476RG** 
 * **Motor Drivers** are used to allow Romi to steer and allow wheel control with the **Encoders**
 * **Encoders**, attached to the Motors allow us to monitor the position and velocity
 * **IR Sensor Array** is used for following the line, calibrating the data and putting it into a closed loop controller to read the error and change the PWM of the motors accordingly
 * **Bump Sensors** were used for multiple instances for our case. Initially, it was used to stop our Romi when triggered for ease of use, but currently, it was used to trigger a state within our main task to return to the starting position after hitting the wall.
-* **Voltage Divider** (image shown below) was used to help with the motor compensation and monitor the amount of volts Romi was running each trial. With a full set of NiMH AA batteries, the total maximum voltage output would be 6 x 1.4V = 8.4V. R1 was set to 10K ohms and R2 was set to 4.7K ohms  to get a similar Vout that would convert the 8.4V to 3.3V for the ADC.
-
+* **BNO055 IMU Breakout Board** The IMU is a 9-axis orientation sensor that integrates an accelerometer, gyroscope, and magnetometer that uses sensor data to provide highly accurate orientation estimates
+* **Voltage Divider** (image shown below) was used to help with the motor compensation and monitor the amount of volts Romi was running each trial. With a full set of NiMH AA batteries, the total maximum voltage output would be 6 x 1.4V = 8.4V. R1 was set to 47K ohms and R2 was set to 22K ohms  to get a similar Vout that would convert the 8.4V to 3.3V for the ADC.
 
   ![image](https://github.com/user-attachments/assets/5d546f19-00ff-4f6b-9dc2-f0e02807cb71)
-
 
 # Wiring Diagram
 
