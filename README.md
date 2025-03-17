@@ -110,6 +110,7 @@ Below is our Romi fully constructed:
 
 
 # Wiring Diagram
+<img width="438" alt="image" src="https://github.com/user-attachments/assets/a418bcc5-5219-4a65-af6f-cf7483e87ad3" />
 
 # What makes our Romi Unique
 
