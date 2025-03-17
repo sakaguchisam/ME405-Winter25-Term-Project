@@ -206,8 +206,12 @@ Our PID_Controller task takes the error reading from the **linesensor.py** task 
 | 1 | 8.09 | 13.69 | DNF | DNF | DNF | DNF |
 | 2 | 8.06 | 13.78 | 20.10 | 23.77 | DNF | DNF |
 | 3 | 8.29 | DNF | DNF | DNF | DNF | DNF |
-| 4 (unofficial) | 8.16 | 13.82 | 19.48 | 23.14 | 29.39 | DNF |
+| 4 (unofficial) | 8.16 | 13.82 | 19.48 | 23.14 | DNF | DNF |
 
 # Video of Romi
+While we did not have a video for the unofficial times for Romi, here is the best video we were able to get of Romi doing the course to the best of it's ability. We know that Romi is capable of completing the course, however, with how much precision we need to code in order for Romi to complete the course, we did not want to take a video every failed attempt. 
+
+https://github.com/user-attachments/assets/cdd561b1-fcca-476a-9975-79d23b26857d
 
 # Conclusion
+The overall project allowed the team to demonstrate a design for cooperative multitasking, integration of hardware and software and designing for the most optimum solution to completing the course. While the code involves fine-tuning the values such as the PID, the base speed and the error multiplication, the code itself understands the interaction between the hardware of the wheels, encoders, linesensor, IMU, and bumpers and integrates it with the code and providing real-time updates about the behavior of Romi as it goes along the track. It is also able to connect wirelessly through Bluetooth and run autonomously without the need of any external button pressing or cords.
