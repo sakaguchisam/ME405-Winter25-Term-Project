@@ -154,17 +154,23 @@ Several factors influence Romi’s real-world kinematics, including:
 # Task Diagrams and Descriptions
 
 # Finite State Machines
-*main.py FSM*
+*Main.py FSM*
 ![image](https://github.com/user-attachments/assets/b6278221-41d1-450c-8e5d-55c76023203a)
 
-*bumpsensor FSM*
+*Bumpsensor FSM*
 ![image](https://github.com/user-attachments/assets/42018b16-60d1-40f7-b010-0efbb69e3eb1)
 
-*line_following FSM*
+*Line-following FSM*
 ![image](https://github.com/user-attachments/assets/040bcd5b-e297-4df2-a5ba-9e8927ba9164)
 
-*final_task*
+*Final task FSM*
 ![image](https://github.com/user-attachments/assets/925dd7a4-7a05-4541-b08b-d4420adea927)
+
+*Encoder task FSM*
+![image](https://github.com/user-attachments/assets/9ea6196a-d772-4e37-869d-f1523e3ed677)
+
+*Motor control task FSM*
+![image](https://github.com/user-attachments/assets/c27d29a0-8b61-4b0b-aa57-18cbe4ea9048)
 
 
 
