@@ -155,6 +155,9 @@ Our encoder.py implements an encoder class for tracking position and velocity. I
 **imu.py:**
 Our imu.py provides an interface for the BNO055 IMU sensor using I2C. It supports reading sensor data, calibration, and mode configuration. We have functions for calibration status as well as a function that reads and returns the calibration coefficient from the sensor for the accelerometer, magnetometer, and gyroscope. Functions to read the heading, Euler, angular velocity, acceleration, and magnetic field. For this project, only the heading is used for motor control
 
+**init.py:**
+Our init.py defines shared variables and queues for inter-task communication. These include encoder data, motor efforts, state control, and sensor readings used in the robot's operation.
+
 **left_motor.py & right_motor.py:**
 Our left_motor.py and right_motor.py controls the respective motor using PWM and direction signals. Includes functionality for enabling, disabling, and updating the motor speed with a duty cycle adjustment based on a constant multiplier.
 
