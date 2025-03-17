@@ -153,6 +153,9 @@ Several factors influence Romi’s real-world kinematics, including:
 
 # Task Diagrams and Descriptions
 
+![image](https://github.com/user-attachments/assets/675a3d57-89aa-4152-b768-ebc5803928aa)
+
+
 # Finite State Machines
 ## Main.py FSM
 
