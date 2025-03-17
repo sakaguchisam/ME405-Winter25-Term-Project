@@ -1,6 +1,7 @@
 # ME405-Winter25-Term-Project
 This repository encompasses the mecha25 team 's final report for the Winter 2025 term project for **Sam Sakaguchi** and **Timothy Chu**. This project documents everything about our Romi including what makes it unique, the desgin, pin cofiguration and coding process that made Romi drive autonomously on the course. 
 
+![image](https://github.com/user-attachments/assets/ec17c687-2ea5-4380-a9f0-cb9f4d37864b)
 
 ##### Table of Contents  
 * [The Course](#the-course)  
@@ -102,6 +103,12 @@ The Romi Robot integrates mutliple systems, including the following
 
   ![image](https://github.com/user-attachments/assets/5d546f19-00ff-4f6b-9dc2-f0e02807cb71)
 
+Below is our Romi fully constructed:
+
+![image](https://github.com/user-attachments/assets/f610e1a5-9610-4ddd-b3f0-364ca16a0165)
+![image](https://github.com/user-attachments/assets/d91382c3-3439-47b4-a4f3-76fcd73fd2d9)
+
+
 # Wiring Diagram
 
 # What makes our Romi Unique
@@ -186,8 +193,20 @@ Our init.py defines shared variables and queues for inter-task communication. Th
 **left_motor.py & right_motor.py:**
 Our left_motor.py and right_motor.py controls the respective motor using PWM and direction signals. Includes functionality for enabling, disabling, and updating the motor speed with a duty cycle adjustment based on a constant multiplier.
 
+**linesensor.py** 
+The linesensor.py task reads the values from the IR sensor, creates a normalized average within a range, and multiples it with a constant to give the output of error that will eventually go into the **PID_Controller.py**
+
+**PID_Controller.py**
+Our PID_Controller task takes the error reading from the **linesensor.py** task and creates a Closed Loop PID Controller that then creates a change in the PWM of the **left_motor.py** and **right_motor.py**
 
 # Time Trials
+
+| Trial # | CP#1 | CP#2 | CP#3 | CP#4 | CP#5 | CP#6 |
+| ------------- | ------------- | ---------|------------- | ------------- | ---------|---------|
+| 1 | 8.09 | 13.69 | DNF | DNF | DNF | DNF |
+| 2 | 8.06 | 13.78 | 20.10 | 23.77 | DNF | DNF |
+| 3 | 8.29 | DNF | DNF | DNF | DNF | DNF |
+| 4 (unofficial) | 8.16 | 13.82 | 19.48 | 23.14 | 29.39 | DNF |
 
 # Video of Romi
 
