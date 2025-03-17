@@ -106,9 +106,11 @@ The Romi Robot integrates mutliple systems, including the following
 
 # What makes our Romi Unique
 
-  Our Romi is unique for a couple of reasons. On the hardware side, it is very similar to everyone else's robot, as it has the typical motor and encoders, the IR Sensor and the bump sensor as well. What makes our Romi unique is on the coding side. This code was inevitiably our problem as we decided to a voltage divider and had multiple parameters with arbitrary numbers to maintain the consistency of Romi depending on the battery charge of Romi. This means that in order for Romi to work perfectly, the parameters had to be nearly perfect or one slight misinput could mess up the position of Romi and the error could be to great for Romi to realign. Some of the parameters that we had to control was first the PID closed loop Control. Due to this, we had to perfect the proportional, the integral and the derivative and run multiple trials to make sure that the numbers performed well. From there we had to change the error multiplier. With our error being less than 0.01, we had to improvise since Romi's error itself would not be able to change the speed enough to run the course accordingly. This would mean that Romi would veer off course or more often, drive in a straight line. The solution was to run a multipler to the error to account for these changes, which evidently led to more changes in the PID controller, as everything about this was about balance and finding the most fine tune perfection. The last factor that came into this "uniqueness" of Romi was the voltage divider. This program helped us understand the battery voltage 
+  Our Romi is unique for a couple of reasons. On the hardware side, it is very similar to everyone else's robot, as it has the typical motor and encoders, the IR Sensor and the bump sensor as well. What makes our Romi unique is on the coding side. This code was inevitiably our problem as we decided to a voltage divider and had multiple parameters with arbitrary numbers to maintain the consistency of Romi depending on the battery charge of Romi. This means that in order for Romi to work perfectly, the parameters had to be nearly perfect or one slight misinput could mess up the position of Romi and the error could be to great for Romi to realign. Some of the parameters that we had to control was first the PID Closed Loop Control. Due to this, we had to perfect the proportional, the integral and the derivative and run multiple trials to make sure that the numbers performed well. From there we had to change the error multiplier. With our error being less than 0.01, we had to improvise since Romi's error itself would not be able to change the speed enough to run the course accordingly. This would mean that Romi would veer off course or more often, drive in a straight line. The solution was to run a multipler to the error to account for these changes, which evidently led to more changes in the PID controller, as everything about this was about balance and finding the most fine tune perfection. The last factor that came into this "uniqueness" of Romi was the voltage divider. This program helped us understand the battery voltage and create a multiplier for the PID Controller based off of the depletion of the voltage. However, this also ended up messing with our Romi, as certain voltages allowed us to fully run Romi to it's maximum potential, however, there were times, especially at max and min voltages where Romi couldn't even get past the diamond due to the multiplier being too small. This called for even more fine tuning and repition of testing. 
 
   Another thing that makes Romi unique was where we stored the shares and queues. In our code, there is a .py file called **init.py** which has all of our shares, variables and queues that we decide to use for our system. From there, each file that is downloaded onto our Romi has one line command of import init which allows all of the shares and queues to be incorporated into each program, almost as if we created global variables across all of our files. This saved us tons of time as it helped us visualize where each memory is being stored and where is it being taken out of. However, the process itself might have taken a lot of time, considering that we are going across multiple files to put things into shares and queues and get things out of it, which could have messed up the timing of Romi and it's performance overall. 
+
+  One final thing that made our Romi unique was it's ability to run main with only three different states. **main.py** has a phase in which it runs all of the tasks continuously as one state, as all it does it run the task priority schedule, except for one condition, which is when the left encoder reading goes above 113 radians. This means that main would only run the task priority schedule up until Romi reached the grid portion. While the position was not the same every time as little overcorrections from the diamond or from the perpenducilar lines could cause Romi to use the left motor more than the right, thus having the 113 radians approach faster than anticipated, Romi would consistently show up at within the grid through a second condition that we implemented which was that the line sensor reads all white values. The point of calibrating Romi before we start was that so Romi could understand what is considred "White" and what is considered "Black". While it may not be necessary, this ensures that Romi would always start the second state within the grid, in which the rest was hard coding through the grid, turn 90 degrees and go straight and then maneuver around the wall. 
 
   
 # Kinematics
@@ -135,7 +137,7 @@ $` Y_P = Y_R + x_p*cos(Ψ_R) - y_p*sin(Ψ_R) `$
 
 This equation shows that the yaw rate is directly proportional to the difference in wheel velocities. A higher yaw rate results in sharper turns, while a lower yaw rate allows for more gradual changes in direction. X_P and Y_P represnt the Point of interest for Romi, which is not the same as the centroid, which is denoted as X_R and Y_R. This is because the line sensor is not at the centroid, but rather somewhere further up. Eventually, this will determine the position at which Romi is facing in degrees from the Yaw Angle. Then based off of the initial position, we can make a datum off of it, similar to a second moving axis, and have our code be consistent based off of the angle at which Romi is facing in comparison to the initial position rather than some arbitrary values. This is done mainly from the help of the IMU in which we call it the heading. 
 
-### Practical Considerations
+### Considerations
 Several factors influence Romi’s real-world kinematics, including:
 * Wheel slippage and friction: Imperfections in wheel traction can affect motion accuracy.
 * Sensor feedback: Encoders can improve control by providing real-time wheel velocity data.
@@ -146,6 +148,17 @@ Several factors influence Romi’s real-world kinematics, including:
 # Finite State Machines
 
 # Code Description
+
+**boot.py**
+Our boot.py file was special in which we had our own file that had the initialization of the UART, and Bluetooth configuration. This meant that every time we opened up PuTTY, we had the option to run either Bluetooth or through the cord, both which had their own benefits and drawbacks. 
+
+<ins>Benefits of Bluetooth</ins>
+* Romi could run autonomously and through the grid without any tangling.
+* Could have someone be at the work station while the other group member could caibrate at the course.
+
+<ins>Drawbacks of Bluetooth</ins>
+* Longer to calibrate
+* Having to bring Romi back and plug in new values every time via USB-mini-B to USB-C every time
 
 **main.py:**
 Our main.py code will manage all of the other functions and files that controls individual Romi components and software that processes data to make motor decisions. 
@@ -168,7 +181,7 @@ Our encoder.py implements an encoder class for tracking position and velocity. I
 Our imu.py provides an interface for the BNO055 IMU sensor using I2C. It supports reading sensor data, calibration, and mode configuration. We have functions for calibration status as well as a function that reads and returns the calibration coefficient from the sensor for the accelerometer, magnetometer, and gyroscope. Functions to read the heading, Euler, angular velocity, acceleration, and magnetic field. For this project, only the heading is used for motor control
 
 **init.py:**
-Our init.py defines shared variables and queues for inter-task communication. These include encoder data, motor efforts, state control, and sensor readings used in the robot's operation.
+Our init.py defines shared variables and queues for inter-task communication. These include encoder data, motor efforts, state control, and sensor readings used in the robot's operation. This file was imported into every other file, allowing for every file to be able to access, push and get things from other files.
 
 **left_motor.py & right_motor.py:**
 Our left_motor.py and right_motor.py controls the respective motor using PWM and direction signals. Includes functionality for enabling, disabling, and updating the motor speed with a duty cycle adjustment based on a constant multiplier.
