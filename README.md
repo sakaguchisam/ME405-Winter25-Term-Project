@@ -105,7 +105,12 @@ The Romi Robot integrates mutliple systems, including the following
 # Wiring Diagram
 
 # What makes our Romi Unique
-Our Romi is unique for a couple of reasons. On the hardware side, it is very similar to everyone else's robot, as it has the typical motor and encoders, the IR Sensor and the bump sensor as well. What makes our Romi unique is on the coding side. This code was inevitiably our problem as we decided to a voltage divider and had multiple parameters with arbitrary numbers to maintain the consistency of Romi depending on the battery charge of Romi. This means that in order for Romi to work perfectly, the parameters had to be nearly perfect or one slight misinput could mess up the position of Romi and the error could be to great for Romi to realign. 
+
+  Our Romi is unique for a couple of reasons. On the hardware side, it is very similar to everyone else's robot, as it has the typical motor and encoders, the IR Sensor and the bump sensor as well. What makes our Romi unique is on the coding side. This code was inevitiably our problem as we decided to a voltage divider and had multiple parameters with arbitrary numbers to maintain the consistency of Romi depending on the battery charge of Romi. This means that in order for Romi to work perfectly, the parameters had to be nearly perfect or one slight misinput could mess up the position of Romi and the error could be to great for Romi to realign. Some of the parameters that we had to control was first the PID closed loop Control. Due to this, we had to perfect the proportional, the integral and the derivative and run multiple trials to make sure that the numbers performed well. From there we had to change the error multiplier. With our error being less than 0.01, we had to improvise since Romi's error itself would not be able to change the speed enough to run the course accordingly. This would mean that Romi would veer off course or more often, drive in a straight line. The solution was to run a multipler to the error to account for these changes, which evidently led to more changes in the PID controller, as everything about this was about balance and finding the most fine tune perfection. The last factor that came into this "uniqueness" of Romi was the voltage divider. This program helped us understand the battery voltage 
+
+  Another thing that makes Romi unique was where we stored the shares and queues. In our code, there is a .py file called **init.py** which has all of our shares, variables and queues that we decide to use for our system. From there, each file that is downloaded onto our Romi has one line command of import init which allows all of the shares and queues to be incorporated into each program, almost as if we created global variables across all of our files. This saved us tons of time as it helped us visualize where each memory is being stored and where is it being taken out of. However, the process itself might have taken a lot of time, considering that we are going across multiple files to put things into shares and queues and get things out of it, which could have messed up the timing of Romi and it's performance overall. 
+
+  
 # Kinematics
 
 ![image](https://github.com/user-attachments/assets/67c7271a-a9e4-40f7-bf5f-ee6302cfe82b)
@@ -123,6 +128,13 @@ $` v = Ωr `$
 $` ω = (r/w)(V_R - V_L) `$
 
 ### Yaw Angles
+$` X_P = X_R + x_p*cos(Ψ_R) + y_p*sin(Ψ_R) `$
+
+$` Y_P = Y_R + x_p*cos(Ψ_R) - y_p*sin(Ψ_R) `$
+
+
+This equation shows that the yaw rate is directly proportional to the difference in wheel velocities. A higher yaw rate results in sharper turns, while a lower yaw rate allows for more gradual changes in direction. X_P and Y_P represnt the Point of interest for Romi, which is not the same as the centroid, which is denoted as X_R and Y_R. This is because the line sensor is not at the centroid, but rather somewhere further up. Eventually, this will determine the position at which Romi is facing in degrees from the Yaw Angle. Then based off of the initial position, we can make a datum off of it, similar to a second moving axis, and have our code be consistent based off of the angle at which Romi is facing in comparison to the initial position rather than some arbitrary values. This is done mainly from the help of the IMU in which we call it the heading. 
+
 ### Practical Considerations
 Several factors influence Romi’s real-world kinematics, including:
 * Wheel slippage and friction: Imperfections in wheel traction can affect motion accuracy.
