@@ -27,12 +27,13 @@ Requirements for this course include the following:
 
 ![1742152525769-57c1c358-5c8b-471f-be25-ab3d4c9f98cd_1](https://github.com/user-attachments/assets/0e8832d8-63dd-4891-ae1e-e25146b48fcb)
 
-The tricky part about this course was the line sensing portion. With multiple different scenarios, including the diamond before CP#1, the dashed lines and the perpendicular lines, Romi would go off course from even a little bit of misalignment, making it's behavior sparatic. This line following was then followed by a grid in which Romi would have to carefully navigate through the beams, turn 90 degrees and maneuver in between two beams to regain the line following. This then is followed by the wall in which Romi would have to navigate around as well in order to return to it's starting point of the last checkpoint. 
+The tricky part about this course was the line sensing portion. With multiple different scenarios, including the diamond before CP#1, the dashed lines and the perpendicular lines, Romi would go off course from even a little bit of misalignment, making it's behavior sparatic. This line following was then followed by a grid in which Romi would have to carefully navigate through the beams, turn 90 degrees and maneuver in between two beams to regain the line following. This then is followed by the wall in which Romi would have to navigate around as well in order to return to it's starting point or the last checkpoint. 
 
 # Materials and Parts
 
 ## Lab Provided Parts
-These parts were provided by the Cal Poly San Luis Obispo ME405 Professor Charlie Refvem
+> [!NOTE]
+> These parts were provided by the Cal Poly San Luis Obispo ME405 Professor Charlie Refvem
 
 | Qty | Part | Source |
 | ------------- | ------------- | ---------|
@@ -55,7 +56,9 @@ These parts were provided by the Cal Poly San Luis Obispo ME405 Professor Charli
 | 1 | 22k Ohm Resistor  | Lab Provided |
 
 ## Other sourced Parts
-These separate parts were bought by the team
+> [!NOTE]
+> These separate parts were bought by the team
+
 | Qty | Part | Source |
 | ------------- | ------------- | ---------|
 | 1 | 120pcs 20 cm Dupon Ribbon  | [Link](https://www.amazon.com/dp/B07GCY6CH7?th=1) |
@@ -75,12 +78,23 @@ These separate parts were bought by the team
 
 The Romi Robot integrates mutliple systems, including the following
 
-* **Nucleo L476RG** 
-* **Motor Drivers** are used to allow Romi to steer and allow wheel control with the **Encoders**
+* **Nucleo-L476RG** acts as the main processing unit, handling sensor data, executing algorithms, and driving the motors. From the laptop, it connects to the Shoe of Brian and communicates with other sensors like the BNO055 IMU for orientation sensing and the Reflectance Sensor for line tracking. With its processor, multiple communication interfaces (I2C, SPI, UART), it enables real-time decision-making and efficient motor control, allowing it to do operations and tasks for Romi to complete the obstacle course.
+
+![image](https://github.com/user-attachments/assets/f068ee48-962a-4012-bbfa-ddeb9c12db73)
+
+* **Shoe of Brian** (Picture provided by Professor Charlie Refvem) has a USB-mini-B connection, which connects the laptop with the Nucleo and prevent current back into the laptop.
+
+![image](https://github.com/user-attachments/assets/87cfe455-d4db-431e-9dda-19f47bcdf87a)
+
+* **Motor Drivers** are used to allow Romi to steer and allow wheel control with the **Encoders**. It uses Pulse Width Modulation (PWM) for speed controlling can sets the direction via the DIR digital pin cofiguration, and enables/disables using a SLP Digital Pin.
 * **Encoders**, attached to the Motors allow us to monitor the position and velocity
 * **IR Sensor Array** is used for following the line, calibrating the data and putting it into a closed loop controller to read the error and change the PWM of the motors accordingly
 * **Bump Sensors** were used for multiple instances for our case. Initially, it was used to stop our Romi when triggered for ease of use, but currently, it was used to trigger a state within our main task to return to the starting position after hitting the wall.
 * **BNO055 IMU Breakout Board** The IMU is a 9-axis orientation sensor that integrates an accelerometer, gyroscope, and magnetometer that uses sensor data to provide highly accurate orientation estimates
+
+![image](https://github.com/user-attachments/assets/f6e64f59-799b-4cc5-91aa-654f3f0be253)
+
+
 * **Voltage Divider** (image shown below) was used to help with the motor compensation and monitor the amount of volts Romi was running each trial. With a full set of NiMH AA batteries, the total maximum voltage output would be 6 x 1.4V = 8.4V. R1 was set to 47K ohms and R2 was set to 22K ohms  to get a similar Vout that would convert the 8.4V to 3.3V for the ADC.
 
   ![image](https://github.com/user-attachments/assets/5d546f19-00ff-4f6b-9dc2-f0e02807cb71)
@@ -88,8 +102,29 @@ The Romi Robot integrates mutliple systems, including the following
 # Wiring Diagram
 
 # What makes our Romi Unique
-Our Romi is unique for a couple of reasons. On the hardware side, it is very similar to everyone else's robot, as it has the typical motor and encoders, the IR Sensor and the bump sensor as well. What makes our Romi unique is on the coding side. This code was inevitiably our problem as we decided to a voltage divider and had multiple parameters with arbitrary numbers to maintain the consistency of Romi depending on the battery charge of Romi. 
+Our Romi is unique for a couple of reasons. On the hardware side, it is very similar to everyone else's robot, as it has the typical motor and encoders, the IR Sensor and the bump sensor as well. What makes our Romi unique is on the coding side. This code was inevitiably our problem as we decided to a voltage divider and had multiple parameters with arbitrary numbers to maintain the consistency of Romi depending on the battery charge of Romi. This means that in order for Romi to work perfectly, the parameters had to be nearly perfect or one slight misinput could mess up the position of Romi and the error could be to great for Romi to realign. 
 # Kinematics
+
+![image](https://github.com/user-attachments/assets/67c7271a-a9e4-40f7-bf5f-ee6302cfe82b)
+
+Romi is a small, two-wheeled differential drive robot that has two motors that can move independently. Understanding its kinematics is essential for controlling its movement accurately, even if only for simple navigation tasks. 
+
+### Differential Drive Kinematics
+Romi has a differential drive system, meaning it has two independently controlled wheels with a caster wheel providing additional balance and support. This system allows for precise control over linear and angular motion by varying the velocities of the left and right wheels.
+
+### Forward Kinematics
+The forward kinematics equations describe how wheel velocities translate into robot motion. If the left and right wheels have velocities  and , respectively, and the wheel radius is , then the linear velocity  and angular velocity  of the robot’s center are given by:
+
+$` v = Ωr `$
+
+$` ω = (r/w)(V_R - V_L) `$
+
+### Yaw Angles
+### Practical Considerations
+Several factors influence Romi’s real-world kinematics, including:
+* Wheel slippage and friction: Imperfections in wheel traction can affect motion accuracy.
+* Sensor feedback: Encoders can improve control by providing real-time wheel velocity data.
+* Control algorithms: Implementing PID controllers can help maintain stable motion and correct deviations from intended trajectories.
 
 # Task Diagrams and Descriptions
 
