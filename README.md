@@ -86,14 +86,17 @@ The Romi Robot integrates mutliple systems, including the following
 
 ![image](https://github.com/user-attachments/assets/87cfe455-d4db-431e-9dda-19f47bcdf87a)
 
-* **Motor Drivers** are used to allow Romi to steer and allow wheel control with the **Encoders**. It uses Pulse Width Modulation (PWM) for speed controlling can sets the direction via the DIR digital pin cofiguration, and enables/disables using a SLP Digital Pin.
-* **Encoders**, attached to the Motors allow us to monitor the position and velocity
-* **IR Sensor Array** is used for following the line, calibrating the data and putting it into a closed loop controller to read the error and change the PWM of the motors accordingly
+* **Motor Drivers** are used to allow Romi to steer and allow wheel control with the **Encoders**. It uses Pulse Width Modulation (PWM) for speed controlling can set the direction via the DIR digital pin cofiguration, and enables/disables using a SLP Digital Pin.
+  
+* **Encoders**, attached to the Motors allow us to monitor the position and velocity using hardware timers attached to the motors. Counting in endcoder ticks, these changes in time can be used to calculate total position and velocity of Romi for each motor at any given moment, which was important in our case for when to know when we have hit CP#4
+  
+* **IR Sensor Array** is used for following the line, calibrating the data and putting it into a closed loop controller to read the error and change the PWM of the motors accordingly. The team uses 7 of the 13 pins available (the odd pins) to minimize the total amount of analog pins needed while also keeping a small enough spread to read the line correctly.
+
 * **Bump Sensors** were used for multiple instances for our case. Initially, it was used to stop our Romi when triggered for ease of use, but currently, it was used to trigger a state within our main task to return to the starting position after hitting the wall.
+
 * **BNO055 IMU Breakout Board** The IMU is a 9-axis orientation sensor that integrates an accelerometer, gyroscope, and magnetometer that uses sensor data to provide highly accurate orientation estimates
 
 ![image](https://github.com/user-attachments/assets/f6e64f59-799b-4cc5-91aa-654f3f0be253)
-
 
 * **Voltage Divider** (image shown below) was used to help with the motor compensation and monitor the amount of volts Romi was running each trial. With a full set of NiMH AA batteries, the total maximum voltage output would be 6 x 1.4V = 8.4V. R1 was set to 47K ohms and R2 was set to 22K ohms  to get a similar Vout that would convert the 8.4V to 3.3V for the ADC.
 
