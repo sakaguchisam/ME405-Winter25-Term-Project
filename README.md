@@ -206,10 +206,10 @@ Our PID_Controller task takes the error reading from the **linesensor.py** task 
 | 1 | 8.09 | 13.69 | DNF | DNF | DNF | DNF |
 | 2 | 8.06 | 13.78 | 20.10 | 23.77 | DNF | DNF |
 | 3 | 8.29 | DNF | DNF | DNF | DNF | DNF |
-| 4 (unofficial) | 8.16 | 13.82 | 19.48 | 23.14 | DNF | DNF |
+| 4 (unofficial) | 8.16 | 13.82 | 19.48 | 23.14 | 29.97 | DNF |
 
 # Video of Romi
-While we did not have a video for the unofficial times for Romi, here is the best video we were able to get of Romi doing the course to the best of it's ability. We know that Romi is capable of completing the course, however, with how much precision we need to code in order for Romi to complete the course, we did not want to take a video every failed attempt. 
+While we did not have a video for the unofficial times for Romi, here is the best video we were able to get of Romi doing the course to the best of it's ability. We know that Romi is capable of completing the course, however, with how much precision we need in order for Romi to complete the course, we did not want to take a video every failed attempt. 
 
 https://github.com/user-attachments/assets/cdd561b1-fcca-476a-9975-79d23b26857d
 
